@@ -1,5 +1,7 @@
 import 'package:bkschedule/constant.dart';
+import 'package:bkschedule/screens/components/TextBoxContainer.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
+import 'package:bkschedule/screens/components/rounded_input_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,52 +74,5 @@ class Background extends StatelessWidget {
   }
 }
 
-class RoundedInputField extends StatelessWidget {
-  final String hintText;
-  final IconData icon;
-  final ValueChanged<String> onChanged;
-  const RoundedInputField({
-    Key? key, required this.hintText,  this.icon=Icons.person, required this.onChanged,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return TextBoxContainer(
-      child: TextField(
-        onChanged: onChanged,
-        decoration: InputDecoration(
-            icon: Icon(
-                icon,
-              color: kPrimaryColor,
-            ),
-            hintText: hintText,
-            border: InputBorder.none,
-        ),
-      ),
-    );
-  }
-}
 
-class TextBoxContainer extends StatelessWidget {
-  final Widget child;
-  const TextBoxContainer({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size= MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10,),
-      width: size.width*0.8,
-      height: size.height*0.08,
-      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-      decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: child,
-    );
-  }
-}
