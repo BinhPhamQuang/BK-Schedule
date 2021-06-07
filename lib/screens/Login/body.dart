@@ -28,7 +28,7 @@ class Background extends StatelessWidget {
           Positioned(
             left: 0,
             top: 0,
-            child:  Image(image: AssetImage("assets/photos/main_top.png"), width: size.width*0.2,),
+            child:  Image(image: AssetImage("assets/photos/main_top.png"), width: size.width*0.35,),
           ),
           Positioned(
               right: 0,
@@ -63,7 +63,13 @@ class Background extends StatelessWidget {
                           ),
                         ),
                     ),
-                    RoundedButton(text: "LOGIN", color: kPrimaryColor,press: (){},textcolor: Colors.white,),
+                    RoundedButton(
+                      text: "LOGIN", color: kPrimaryColor,
+                      press: (){
+
+                      },
+                      textcolor: Colors.white,
+                    ),
 
                   ],
                 ),
