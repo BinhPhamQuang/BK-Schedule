@@ -1,75 +1,94 @@
+import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    var lst_class=[
+      Class("MT1005", "Database system", "602 H6", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z")),
+      Class("MT1005", "Principle programing language", "402 H1", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z")),
+      Class("MT1005", "Database system", "603 H6", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z")),
+      Class("MT1005", "Computer networking", "6402 H3", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z"))
+    ];
     Size size= MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             TopLabel(size: size),
 
-            Positioned(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+                Container(
+                padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: "Today classes",
-                            style: TextStyle(
-                              fontSize: size.width*0.065,
-                              fontWeight: FontWeight.bold,
-                              color: kSectionColor,
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical:  0,horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: "Today classes",
+                              style: TextStyle(
+                                fontSize: size.width*0.065,
+                                fontWeight: FontWeight.bold,
+                                color: kSectionColor,
+                              ),
                             ),
                           ),
-                        ),
-                        IconButton(onPressed: (){}, icon: Icon(
-                          Icons.create_sharp,
-                          size:size.width*0.065,
-                          color: kSectionColor,
-                        ),
-                        ),
-
-                      ],
+                          IconButton(onPressed: (){print('clicked');}, icon: Icon(
+                            Icons.create_sharp,
+                            size:size.width*0.065,
+                            color: kSectionColor,
+                          ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 20,),
+                    Container(
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: lst_class.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(title:ItemClass(size: size,nameClass: lst_class[index].name,timeStart: "10:00",timeEnd: "20:00",room: lst_class[index].room,isAm: "AM",) ,);
+                        },
+                      ),
+                    ),
 
                     //add data
-                    ItemClass(size: size,nameClass: "Database system",timeStart: "10:00",timeEnd: "20:00",room: "602 H6",isAm: "AM",),
-                    ItemClass(size: size,nameClass: "Principle programing language",timeStart: "11:20",timeEnd: "20:00",room: "602 H6",isAm: "AM",),
-                    ItemClass(size: size,nameClass: "Computer networking",timeStart: "10:00",timeEnd: "12:30",room: "602 H6",isAm: "PM",),
-                    SizedBox(height: 20,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: "Your tasks",
-                            style: TextStyle(
-                              fontSize: size.width*0.065,
-                              fontWeight: FontWeight.bold,
-                              color: kSectionColor,
+                    //ItemClass(size: size,nameClass: "Database system",timeStart: "10:00",timeEnd: "20:00",room: "602 H6",isAm: "AM",),
+                    //  ItemClass(size: size,nameClass: "Principle programing language",timeStart: "11:20",timeEnd: "20:00",room: "602 H6",isAm: "AM",),
+                    //  ItemClass(size: size,nameClass: "Computer networking",timeStart: "10:00",timeEnd: "12:30",room: "602 H6",isAm: "PM",),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: "Your tasks",
+                              style: TextStyle(
+                                fontSize: size.width*0.065,
+                                fontWeight: FontWeight.bold,
+                                color: kSectionColor,
+                              ),
                             ),
                           ),
-                        ),
-                        // Text("Button edit",style: TextStyle(
-                        //   fontSize: size.width*0.07,
-                        //   fontWeight: FontWeight.normal,
-                        //   color: kSectionColor,
-                        // ),),
-                      ],
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 20,),
+
+                    
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -83,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
+
 
           ],
         ),
@@ -160,9 +179,9 @@ class ItemClass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      width: size.width,
+      margin: EdgeInsets.only(bottom: 2),
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-      height: size.height*0.14,
       decoration: BoxDecoration(
         color: kTextBoxColor,
         borderRadius: BorderRadius.circular(15),
@@ -237,38 +256,45 @@ class TopLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 35),
+      padding: EdgeInsets.only(top: 35,bottom: 15,left: 20,right: 20),
       width: double.infinity,
-      height: size.height*0.18,
+
       decoration: BoxDecoration(
         color: kLabelColor,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
       child: Column(
         children: [
-          Container(
-            color: Colors.red,
-            alignment: Alignment.centerRight,
-            child: RichText(
-              text: TextSpan(
-                text: "Wed",
-                style: TextStyle(
-                  fontSize: size.width*0.04,
-                  fontWeight: FontWeight.w900
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Row(
                 children: [
-                  TextSpan(
-                    text: " 10 Oct",
-                    style: TextStyle(
-                      fontSize: size.width*0.04,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+                  Text("Hi ",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.normal),),
+                  Text("Binh",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.bold),),
                 ],
               ),
-            ),
-
-          ),
+              RichText(
+                text: TextSpan(
+                  text: "Wed",
+                  style: TextStyle(
+                      fontSize: size.width*0.05,
+                      fontWeight: FontWeight.w900
+                  ),
+                  children: [
+                    TextSpan(
+                      text: " 10 Oct",
+                      style: TextStyle(
+                        fontSize: size.width*0.05,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
 
         ],
       ),
