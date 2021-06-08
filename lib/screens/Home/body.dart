@@ -1,4 +1,5 @@
 import 'package:bkschedule/DTO/Class.dart';
+import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,17 +16,23 @@ class HomeScreen extends StatelessWidget {
       Class("MT1005", "Database system", "603 H6", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z")),
       Class("MT1005", "Computer networking", "6402 H3", DateTime.parse("1969-07-20 20:18:04Z"), DateTime.parse("1969-07-20 20:18:04Z"))
     ];
+    var lst_task=[
+      Task("Database system", "MT1005", 1),
+    Task("Database system", "MT1005", 1),
+    Task("Database system", "MT1005", 1)
+    ];
     Size size= MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+
           children: [
             TopLabel(size: size),
-
                 Container(
+
                 padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(vertical:  0,horizontal: 10),
@@ -54,7 +61,6 @@ class HomeScreen extends StatelessWidget {
                     Container(
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
-
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: lst_class.length,
@@ -88,6 +94,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
 
+        //return ListTile(title: ItemTask(size: size,nameTask: lst_task[index].name,timeRemaining: lst_task[index].dayRemaining,),);
                     
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

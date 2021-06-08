@@ -1,4 +1,5 @@
 import 'package:bkschedule/constant.dart';
+import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/components/TextBoxContainer.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:bkschedule/screens/components/rounded_input_field.dart';
@@ -64,10 +65,9 @@ class Background extends StatelessWidget {
                         ),
                     ),
                     RoundedButton(
-                      text: "LOGIN", color: kPrimaryColor,
-                      press: (){
 
-                      },
+                      text: "LOGIN", color: kPrimaryColor,
+
                       textcolor: Colors.white,
                     ),
 
