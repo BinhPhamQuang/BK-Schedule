@@ -1,8 +1,10 @@
-from bs4 import BeautifulSoup
-from flask import Flask, request, jsonify, Response
-import requests
 import json
-
+import requests
+from flask import Flask, request, jsonify, Response
+from flask_cors import CORS, cross_origin
+from bs4 import BeautifulSoup
+app = Flask(__name__)
+CORS(app)
 
 
 def formatSubject(subject):
@@ -18,6 +20,7 @@ def formatSubject(subject):
              "location": subject[9],
              "week": [int(s) for s in subject[10].split('|') if s.isdigit()]
              }
+ 
     return jsona
 
 
@@ -26,32 +29,22 @@ def formatSubjects(subjects):
     result = []
     for subject in subjects[0:-1]:
         result.append(formatSubject(subject))
-    result.append({total_credits[0]})
+    # result.append({total_credits[0]})
     return result
 
 
-
- 
- 
-
- 
-
-def runData(username,password):
-    url='https://parsehub.com/api/v2/projects/tnV95-DM1BV8/run?api_key=t4jcktThdW64&start_value_override ={"username":"'+username+'","password":"'+password+'"}'
-    request=requests.post(url=url)
+def runData(username, password):
+    url = 'https://parsehub.com/api/v2/projects/tnV95-DM1BV8/run?api_key=t4jcktThdW64&start_value_override ={"username":"' + \
+        username+'","password":"'+password+'"}'
+    request = requests.post(url=url)
     return request.json()["run_token"]
 
 
-
-
-
-
-
-
 def get_run(run_token):
-    check_run="https://www.parsehub.com/api/v2/runs/"+run_token+"?api_key=t4jcktThdW64"
-    response=requests.get(url=check_run)
-    if response.json()["data_ready"]!=1:
+    check_run = "https://www.parsehub.com/api/v2/runs/" + \
+        run_token+"?api_key=t4jcktThdW64"
+    response = requests.get(url=check_run)
+    if response.json()["data_ready"] != 1:
         return -1
 
     all_semester = []
@@ -71,18 +64,46 @@ def get_run(run_token):
         subjects = []
         for j in tbody.find_all("tr"):
             subject = [k.text.strip()
-                    for k in j.findChildren("td", recursive=True)]
+                       for k in j.findChildren("td", recursive=True)]
             subjects.append(subject)
         all_subjects.append(formatSubjects(subjects))
 
     for i in range(0, len(title), 2):
-        all_semester.append({
+        json_data={
             "semester": title[i].text,
             "subjects": all_subjects[0],
-            "last_update":title[i+1].text[14:]
-        })
-        all_subjects=all_subjects[1:]
+            "last_update": title[i+1].text[14:]
+        }
+        all_semester.append(json_data)
+        all_subjects = all_subjects[1:]
     return all_semester
 
 
- 
+def set_default(obj):
+    if isinstance(obj, set):
+        return list(obj)
+    raise TypeError
+
+@app.route('/post-run/',methods=['POST'])
+def postRun():
+    username=request.json["username"]
+    password=request.json["password"]
+    result= runData(username,password)
+    return jsonify({"result":result})
+
+
+
+@app.route('/get-run/<run_token>', methods=['GET'])
+def getRun(run_token):
+
+    result = get_run(run_token)
+    return jsonify({"result":result})
+
+
+@app.route('/')
+def index():
+    return "Welcome to our API"
+
+
+if __name__ == "__main__":
+    app.run()
