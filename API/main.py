@@ -39,8 +39,9 @@ def runData(username, password):
     request = requests.post(url=url)
     return request.json()["run_token"]
 
-
+current_week= None
 def get_run(run_token):
+    global current_week
     check_run = "https://www.parsehub.com/api/v2/runs/" + \
         run_token+"?api_key=t4jcktThdW64"
     response = requests.get(url=check_run)
@@ -70,6 +71,7 @@ def get_run(run_token):
 
     for i in range(0, len(title), 2):
         json_data={
+
             "semester": title[i].text,
             "subjects": all_subjects[0],
             "last_update": title[i+1].text[14:]
@@ -97,7 +99,9 @@ def postRun():
 def getRun(run_token):
 
     result = get_run(run_token)
-    return jsonify({"result":result})
+    return jsonify({
+        "current_week":current_week,
+        "result":result})
 
 
 @app.route('/')
