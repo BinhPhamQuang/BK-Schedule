@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:bkschedule/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ class ItemTask extends StatelessWidget {
       width: size.width*0.38,
       height: size.width*0.44,
       decoration: BoxDecoration(
+        border: Border.all(color: kPrimaryColor,width: 3),
           borderRadius: BorderRadius.circular(20),
           color: kTextBoxColor
       ),
@@ -61,16 +64,17 @@ class ItemClass extends StatelessWidget {
   final String timeStart;
   final String timeEnd;
 
-  final String isAm;
+
   const ItemClass({
     Key? key,
-    required this.size, required this.nameClass, required this.room, required this.timeStart, required this.timeEnd , required this.isAm,
+    required this.size, required this.nameClass, required this.room, required this.timeStart, required this.timeEnd  ,
   }) : super(key: key);
 
   final Size size;
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: size.width,
       margin: EdgeInsets.only(bottom: 2),
@@ -86,7 +90,7 @@ class ItemClass extends StatelessWidget {
             children: [
               Text(timeStart,
                 style: TextStyle(fontSize: size.height*0.031,color: Colors.black,fontWeight: FontWeight.bold),),
-              Text(isAm,style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.bold),),
+
             ],
           ),
           Container(
@@ -97,7 +101,19 @@ class ItemClass extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(nameClass,style: TextStyle(fontSize: size.height*0.023,color: Colors.black,fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis, maxLines: 1,),
+              Row(
+                children: [
+                 Container(
+                   width: size.width*0.6,
+                   child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                            child: Text(nameClass,style: TextStyle(fontSize: size.height*0.023,color: Colors.black,fontWeight: FontWeight.bold) )
+                        ),
+                 ),
+
+                ],
+              ),
+
               SizedBox(
                 height: 10,
               ),

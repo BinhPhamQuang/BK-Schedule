@@ -59,7 +59,7 @@ List<Subject> getSubjectForToday(Semester semester)
 
   List<Subject> result=[];
   semester.subjects.forEach((element) {
-    if (element.thu==dates[DateFormat('EEEE').format(DateTime.now())].toString())
+    if (1==1 ||element.thu==dates[DateFormat('EEEE').format(DateTime.now())].toString())
     {
       if (element.week.contains(current_week) )
       {
@@ -104,4 +104,6 @@ Future<List<Semester>> getRun(String run) async
   current_week=int.parse(json["current_week"]);
   return result;
 }
+
+
 
