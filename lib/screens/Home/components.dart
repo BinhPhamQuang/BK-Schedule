@@ -105,7 +105,7 @@ class ItemClass extends StatelessWidget {
               Row(
                 children: [
                  Container(
-                   width: size.width*0.6,
+                   width: size.width*0.58,
                    child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                             child: Text(nameClass,style: TextStyle(fontSize: size.height*0.023,color: Colors.black,fontWeight: FontWeight.bold) )

@@ -1,4 +1,5 @@
 import 'package:bkschedule/DTO/Class.dart';
+import 'package:bkschedule/DTO/Subject.dart';
 import 'package:bkschedule/screens/Home/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

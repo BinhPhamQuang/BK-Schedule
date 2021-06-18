@@ -3,6 +3,7 @@ import requests
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS, cross_origin
 from bs4 import BeautifulSoup
+from datetime import datetime as dt
 app = Flask(__name__)
 CORS(app)
 
@@ -100,6 +101,7 @@ def getRun(run_token):
 
     result = get_run(run_token)
     return jsonify({
+        "date":dt.now().strftime("%d/%m/%Y"),
         "current_week":current_week,
         "result":result})
 

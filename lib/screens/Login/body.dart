@@ -1,3 +1,4 @@
+import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/components/TextBoxContainer.dart';

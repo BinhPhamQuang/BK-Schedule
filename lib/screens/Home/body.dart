@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:bkschedule/DTO/Class.dart';
+import 'package:bkschedule/DTO/Subject.dart';
 import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Schedules/body.dart';

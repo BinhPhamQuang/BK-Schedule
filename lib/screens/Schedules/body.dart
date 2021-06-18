@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bkschedule/DTO/Class.dart';
+import 'package:bkschedule/DTO/Semester.dart';
+import 'package:bkschedule/DTO/Subject.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
