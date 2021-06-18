@@ -63,7 +63,7 @@ class HomeBody extends StatelessWidget {
                           List<Subject> data= snapshot.data as List<Subject>;
                           if (data.length==0)
                           {
-                            return Text("Do not need go to school today ^-^", style: TextStyle(fontSize: size.width*0.05, color: Colors.blueGrey),);
+                            return Text("Hôm nay được nghỉ ^-^", style: TextStyle(fontSize: size.width*0.05, color: Colors.blueGrey),);
                           }
                           return
                             ListView.builder(

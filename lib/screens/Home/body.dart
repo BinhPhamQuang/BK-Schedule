@@ -1,15 +1,15 @@
+
 import 'dart:math';
 
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Schedules/body.dart';
-import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'bottom-navigation.dart';
-import 'components.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:developer' as dev;
+import 'dart:io';
 import 'home.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,6 +30,7 @@ class _HomeScreen extends State<HomeScreen>
   void initState()
   {
     super.initState();
+
     futureData=getTodaySubject();
 
   }
@@ -89,6 +90,11 @@ class _HomeScreen extends State<HomeScreen>
               icon: Icon(Icons.school_sharp),
               title: Text("Lịch thi")
           ),
+          BottomNavigationBarItem(
+            backgroundColor: kPrimaryColor,
+              icon: Icon(Icons.settings),
+                title: Text("Settings"),
+          ),
         ],
         onTap: (int index){
           onTapHander(index);
@@ -99,6 +105,8 @@ class _HomeScreen extends State<HomeScreen>
 
 
 }
+
+
 
 
 

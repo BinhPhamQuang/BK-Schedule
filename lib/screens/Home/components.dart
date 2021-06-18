@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bkschedule/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 
 class ItemTask extends StatelessWidget {
@@ -164,6 +165,9 @@ class TopLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = new DateTime.now();
+    String date= DateFormat("EEEE").format(now).toString()+" ";
+    String day=DateFormat("d").format(now).toString()+" "+DateFormat("MMM").format(now).toString();
     return Container(
       padding: EdgeInsets.only(top: 35,bottom: 15,left: 20,right: 20),
       width: double.infinity,
@@ -186,14 +190,14 @@ class TopLabel extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                  text: "Wed",
+                  text: date,
                   style: TextStyle(
                       fontSize: size.width*0.05,
                       fontWeight: FontWeight.w900
                   ),
                   children: [
                     TextSpan(
-                      text: " 10 Oct",
+                      text: day,
                       style: TextStyle(
                         fontSize: size.width*0.05,
                         fontWeight: FontWeight.normal,

@@ -27,18 +27,6 @@ class Background extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           Positioned(
-            left: 0,
-            top: 0,
-            child:  Image(image: AssetImage("assets/photos/main_top.png"), width: size.width*0.35,),
-          ),
-          Positioned(
-              right: 0,
-              bottom: 0,
-              child: Image(image: AssetImage("assets/photos/login_bottom.png"),width: size.width*0.3,)
-          ),
-
-
-          Positioned(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,20 +48,25 @@ class Background extends StatelessWidget {
                             icon: Icon(Icons.lock,color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
-                            suffixIcon: Icon(Icons.visibility,color: kPrimaryColor,)
+                            //suffixIcon: Icon(Icons.visibility,color: kPrimaryColor,)
                           ),
                         ),
                     ),
                     RoundedButton(
-
                       text: "LOGIN", color: kPrimaryColor,
 
                       textcolor: Colors.white,
                     ),
+                    TextButton(
 
+                      child: Text("Điều khoản sử dụng"),
+                      onPressed: () {  },
+                    ),
                   ],
                 ),
-              ),),
+              ),
+          ),
+
         ],
       ),
     );

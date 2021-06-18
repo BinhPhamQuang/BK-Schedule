@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
@@ -14,19 +15,22 @@ class LabelDate extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(12),
       alignment: Alignment.center,
       width: size.width*0.25,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: kPrimaryColor
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: size.width*0.045,
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: size.width*0.045,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
@@ -63,12 +67,18 @@ class ItemScheduleSubject extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          Text(
-            course_name,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: size.width*0.06,
+          Container(
+            width: size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                course_name,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: size.width*0.05,
+                ),
+              ),
             ),
           ),
           SizedBox(
@@ -82,14 +92,14 @@ class ItemScheduleSubject extends StatelessWidget {
 
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: size.width*0.045,
+                  fontSize: size.width*0.042,
                 ),
               ),
               Text(
                 course_id,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: size.width*0.045,
+                  fontSize: size.width*0.042,
                 ),
               ),
             ],
@@ -109,7 +119,7 @@ class ItemScheduleSubject extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.blueGrey,
-              fontSize: size.width*0.045,
+              fontSize: size.width*0.042,
             ),
           ),
         ],
