@@ -77,7 +77,7 @@ int caculateCurrentWeek()
 
   return result;
 }
-final run="tSi6NcXaY5Rf";
+
 Future<List<Subject>> getTodaySubject() async {
 
   List<Semester> lst= await loadData() ;
@@ -104,7 +104,7 @@ Future<List<Semester>> getAllSemester() async
 Future<int> getLastReady() async
 {
   print("get last ready run running..");
-  String url="https://bk-schedule.herokuapp.com/get-last-ready/"+run;
+  String url="https://bk-schedule.herokuapp.com/get-last-ready/";
   //List<Semester> result= [];
   Response response= await get(url);
   int statusCode=response.statusCode;
@@ -132,11 +132,22 @@ Future<int> getRun(String run) async
   Response response= await get(url);
   int statusCode=response.statusCode;
   String body= response.body;
+  final jsonData=  jsonDecode(body);
+  final ta= jsonData["result"];
+  dev.log("jsonData: $ta");
+  if(jsonData["result"]==-2)
+    {
+      return -2;
+    }
+  else if(jsonData["result"]==-1)
+    {
+      return -1;
+    }
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/amy_file.txt');
   await file.writeAsString(body);
-  print('saved');
-  //final jsonData=  jsonDecode(body);
+  dev.log("get run status: saved");
+
 
   //
   // (jsonData["result"] as List).forEach((element) {
@@ -207,7 +218,33 @@ Future<int> savedStateLogin(String username,String password, String run) async
 }
 
 
+Future<int> postFirstRun(String username,String password) async
+{
+  dev.log("running first run");
+  String run_token= await postRun(username, password);
+  dev.log("run token: $run_token");
+  int status=-1;
+  while(true)
+    {
+      dev.log("looping: $status");
+      status= await getRun(run_token);
+      if(status==-2)
+        {
+          return -2;
+        }
+      else if(status==1)
+        {
+          break;
+        }
+      await Future.delayed(Duration(seconds: 1));
+    }
+  await savedStateLogin(username, password, run_token);
+  return 1;
+}
+
+
 Future<String> postRun(String username,String password)
+// return the run token
 async {
   var client= new Client();
   dev.log("starting post ...");

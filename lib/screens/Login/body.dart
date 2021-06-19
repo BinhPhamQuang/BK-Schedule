@@ -8,16 +8,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
 
   @override
-  Widget build(BuildContext context) {
-
-    return Background();
-  }
+  Background  createState() => Background();
 }
 
-class Background extends StatelessWidget {
+class Background extends State<Body > {
+  final txtUsername=TextEditingController();
+  final txtPassword= TextEditingController();
+
+  // @override
+  // void dispose()
+  // {
+  //   txtUsername.dispose();
+  //   txtPassword.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
@@ -38,11 +45,21 @@ class Background extends StatelessWidget {
                     SvgPicture.asset(
                       "assets/photos/login.svg",
                       width: size.width*0.7,),
-                    RoundedInputField(hintText: "Your username", onChanged: (value){},
+                    TextBoxContainer(
+                      child: TextField(
+                        controller: txtUsername,
+                        decoration: InputDecoration(
+                          hintText: "Username",
+                          icon: Icon(Icons.person,color: kPrimaryColor,
+                          ),
+                          border: InputBorder.none,
+                          //suffixIcon: Icon(Icons.visibility,color: kPrimaryColor,)
+                        ),
+                      ),
                     ),
-
                     TextBoxContainer(
                         child: TextField(
+                          controller: txtPassword,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Password",
@@ -55,8 +72,9 @@ class Background extends StatelessWidget {
                     ),
                     RoundedButton(
                       text: "LOGIN", color: kPrimaryColor,
-
                       textcolor: Colors.white,
+                      txtUsername: txtUsername,
+                      txtPassword: txtPassword,
                     ),
                     TextButton(
 

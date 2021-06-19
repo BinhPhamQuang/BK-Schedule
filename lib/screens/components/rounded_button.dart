@@ -1,13 +1,16 @@
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Home/body.dart';
+import 'package:bkschedule/screens/loading/loadingScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as dev;
 class RoundedButton extends StatelessWidget {
   final String text;
   final Function? press;
   final Color color,textcolor;
-  const RoundedButton({Key? key, this.text="LOGIN", this.press, required this.color, required this.textcolor}) : super(key: key);
+  final TextEditingController txtUsername;
+  final TextEditingController txtPassword;
+  const RoundedButton({Key? key, this.text="LOGIN", this.press, required this.color, required this.textcolor, required this.txtUsername, required this.txtPassword}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +23,9 @@ class RoundedButton extends StatelessWidget {
         child: RaisedButton(
           //padding: EdgeInsets.symmetric(vertical: 20,horizontal: 30),
           color: color,
-          onPressed: ()
-          async{
-            postRun("binh.pham.quang", "quangbinh1340");
+          onPressed: () {
+
+            //postRun("binh.pham.quang", "quangbinh1340");
             //int savedState= await savedStateLogin("12345", "1234","123");
             //Future<int> savedState= savedStateLogin("12345", "1234","123");
             //    FutureBuilder <int>(
@@ -37,7 +40,7 @@ class RoundedButton extends StatelessWidget {
             //     return CircularProgressIndicator();
             //   },
             // );
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(txtUsername,txtPassword)));
             },
           child: Text(
                 text,
