@@ -41,6 +41,40 @@ def runData(username, password):
     return request.json()["run_token"]
 
 current_week= None
+
+def getReadyRun():
+    global current_week
+    all_semester = []
+    all_subjects = []
+    url = "https://parsehub.com/api/v2/projects/tnV95-DM1BV8/last_ready_run/data?api_key=t4jcktThdW64"
+    response = requests.get(url=url)
+    soup = BeautifulSoup(response.json()["page"], "html.parser")
+    current_week = soup.find("span", class_="date-week-home-organe").text
+
+    lst = soup.find_all("div", class_="content-tab-table")
+
+    title = soup.find_all("div", class_="lichhoc-all")
+
+    for i in lst:
+        tbody = i.find("tbody")
+        subjects = []
+        for j in tbody.find_all("tr"):
+            subject = [k.text.strip()
+                       for k in j.findChildren("td", recursive=True)]
+            subjects.append(subject)
+        all_subjects.append(formatSubjects(subjects))
+
+    for i in range(0, len(title), 2):
+        json_data={
+
+            "semester": title[i].text,
+            "subjects": all_subjects[0],
+            "last_update": title[i+1].text[14:]
+        }
+        all_semester.append(json_data)
+        all_subjects = all_subjects[1:]
+    return all_semester
+
 def get_run(run_token):
     global current_week
     check_run = "https://www.parsehub.com/api/v2/runs/" + \
@@ -48,12 +82,10 @@ def get_run(run_token):
     response = requests.get(url=check_run)
     if response.json()["data_ready"] != 1:
         return -1
-
     all_semester = []
     all_subjects = []
     url = "https://parsehub.com/api/v2/projects/tnV95-DM1BV8/last_ready_run/data?api_key=t4jcktThdW64"
     response = requests.get(url=url)
-
     soup = BeautifulSoup(response.json()["page"], "html.parser")
     current_week = soup.find("span", class_="date-week-home-organe").text
 
@@ -95,6 +127,14 @@ def postRun():
     return jsonify({"result":result})
 
 
+
+@app.route('/get-last-ready',methods=['GET'])
+def getLastReady():
+    result = getReadyRun()
+    return jsonify({
+        "date":dt.now().strftime("%d/%m/%Y"),
+        "current_week":current_week,
+        "result":result})
 
 @app.route('/get-run/<run_token>', methods=['GET'])
 def getRun(run_token):

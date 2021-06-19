@@ -1,7 +1,7 @@
-import 'dart:developer';
-import 'dart:ffi';
+
 import 'dart:io';
 
+import 'package:bkschedule/DTO/encrypt.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:developer' as dev;
@@ -12,11 +12,6 @@ import 'package:path_provider/path_provider.dart';
 
 import 'Semester.dart';
 import 'Subject.dart';
-
-
-
-
-
 
 
 dynamic dates={"Monday":2,"Tuesday":3,"Wednesday":4,"Thursday":5,"Friday":6,"Satuday":7,"Sunday":8};
@@ -105,10 +100,11 @@ Future<List<Semester>> getAllSemester() async
   return loadData();
 }
 
-Future<int> getRun(String run) async
+
+Future<int> getLastReady() async
 {
-  print("get run running..");
-  String url="https://bk-schedule.herokuapp.com/get-run/"+run;
+  print("get last ready run running..");
+  String url="https://bk-schedule.herokuapp.com/get-last-ready/"+run;
   //List<Semester> result= [];
   Response response= await get(url);
   int statusCode=response.statusCode;
@@ -128,12 +124,39 @@ Future<int> getRun(String run) async
 }
 
 
+Future<int> getRun(String run) async
+{
+  dev.log("get run running..");
+  String url="https://bk-schedule.herokuapp.com/get-run/"+run;
+  //List<Semester> result= [];
+  Response response= await get(url);
+  int statusCode=response.statusCode;
+  String body= response.body;
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/amy_file.txt');
+  await file.writeAsString(body);
+  print('saved');
+  //final jsonData=  jsonDecode(body);
+
+  //
+  // (jsonData["result"] as List).forEach((element) {
+  //   result.add(Semester.convertJsonObject(element));
+  // });
+
+  return 1;
+}
+
+
 Future<List<Semester>> loadData() async
 {
 
   List<Semester> result= [];
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/amy_file.txt');
+  if (file.existsSync()==false)
+    {
+      await getLastReady();
+    }
   String text = await file.readAsString();
   final jsonData=  jsonDecode(text);
   (jsonData["result"] as List).forEach((element) {
@@ -151,3 +174,55 @@ _save(String jsonData) async {
   print('saved');
 }
 
+
+Future<Map<String,String>> loadStateLogin() async
+{
+  final directory= await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/user.txt');
+  String data_file= await file.readAsString();
+  final json_data= jsonDecode(data_file);
+
+  var result=
+      {
+        "username": decryptFernet(json_data["djlkasjdczx"]),
+        "password": decryptFernet(json_data["da;xzcmzxcoiz"]),
+        "run":decryptFernet(json_data["mzcnzxueiqwe"])
+      };
+  print(result);
+  return result;
+}
+
+Future<int> savedStateLogin(String username,String password, String run) async
+{
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/user.txt');
+  var body={
+    "djlkasjdczx":encryptFernet(username), //username
+    "da;xzcmzxcoiz":encryptFernet(password), //password
+    "mzcnzxueiqwe":encryptFernet(run) // run
+  };
+  await file.writeAsString(jsonEncode(body));
+  dev.log("Write file finished");
+  return 1;
+}
+
+
+Future<String> postRun(String username,String password)
+async {
+  var client= new Client();
+  dev.log("starting post ...");
+  String url="https://bk-schedule.herokuapp.com/post-run/";
+  var body= {"username":username,"password":password};
+  Response response= await client.post(
+      url,
+      headers: <String, String>{
+        "Accept": "application/json",
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body));
+  var result=response.body;
+  dev.log("post finished");
+  final jsonData=  jsonDecode(result);
+  client.close();
+  return jsonData["result"];
+}

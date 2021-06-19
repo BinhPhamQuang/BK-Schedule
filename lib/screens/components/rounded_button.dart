@@ -2,7 +2,7 @@ import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Home/body.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:developer' as dev;
 class RoundedButton extends StatelessWidget {
   final String text;
   final Function? press;
@@ -17,12 +17,28 @@ class RoundedButton extends StatelessWidget {
       height: size.height*0.08,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
-        child: FlatButton(
+        child: RaisedButton(
           //padding: EdgeInsets.symmetric(vertical: 20,horizontal: 30),
           color: color,
-          onPressed: (){
-
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));},
+          onPressed: ()
+          async{
+            postRun("binh.pham.quang", "quangbinh1340");
+            //int savedState= await savedStateLogin("12345", "1234","123");
+            //Future<int> savedState= savedStateLogin("12345", "1234","123");
+            //    FutureBuilder <int>(
+            //   future: savedStateLogin("12345", "1234","123"),
+            //   builder: (context,snapshot)
+            //   {
+            //     dev.log('In Builder');
+            //     if(snapshot.hasData)
+            //       {
+            //         Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+            //       }
+            //     return CircularProgressIndicator();
+            //   },
+            // );
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+            },
           child: Text(
                 text,
                 style: TextStyle(color: textcolor),
