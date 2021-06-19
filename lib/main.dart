@@ -17,7 +17,8 @@ Future<Widget> getWidget()
 async {
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/user.txt');
-  if (file.existsSync())
+  final file1= File('${directory.path}/amy_file.txt');
+  if (file.existsSync()&& file1.existsSync())
     {
       return HomeScreen();
     }

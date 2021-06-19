@@ -76,6 +76,7 @@ class ItemClass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     return Container(
       width: size.width,
       margin: EdgeInsets.only(bottom: 2),
@@ -86,18 +87,22 @@ class ItemClass extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(timeStart,
-                style: TextStyle(fontSize: size.height*0.031,color: Colors.black,fontWeight: FontWeight.bold),),
+          Container(
+            width: size.width*0.15,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(timeStart,
+                  style: TextStyle(fontSize: size.height*0.031,color: Colors.black,fontWeight: FontWeight.bold),),
 
-            ],
+              ],
+            ),
           ),
           Container(
             margin: EdgeInsets.only(left:10,right: 10),
             width: 1,
-            color: Colors.grey,
+            height: size.height*0.1,
+            decoration: BoxDecoration(color: Colors.blueGrey),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

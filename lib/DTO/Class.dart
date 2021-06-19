@@ -52,7 +52,7 @@ List<Subject> getSubjectByWeek(Semester semester,int week)
 {
   List<Subject> result=[];
   semester.subjects.forEach((element) {
-    if (1==1 || element.thu==dates[DateFormat('EEEE').format(DateTime.now())].toString())
+    if (element.thu==dates[DateFormat('EEEE').format(DateTime.now())].toString())
     {
       if (element.week.contains(week) )
       {
@@ -66,16 +66,24 @@ List<Subject> getSubjectByWeek(Semester semester,int week)
 
 int caculateCurrentWeek()
 {
-  int result=0;
+  // current_week=3;
+  // date="19/3/2021";
+  dev.log("current week:$current_week");
   DateTime now= DateTime.now();
-  date="1/6/2021";
+  int week=current_week;
   DateTime from= new DateFormat('dd/MM/yyyy').parse(date);
   from= DateTime(from.year,from.month,from.day);
   DateTime to= DateTime(now.year,now.month,now.day);
 
-  var between= (to.difference(from).inHours/24).round();
+  int between= (to.difference(from).inHours/24).round();
+  week+= (between/7).floor();
+  from.add(Duration(days: (between/7).floor()*7));
 
-  return result;
+  if(from.weekday>to.weekday)
+  {
+    week+=1;
+  }
+  return week;
 }
 
 Future<List<Subject>> getTodaySubject() async {
@@ -83,8 +91,9 @@ Future<List<Subject>> getTodaySubject() async {
   List<Semester> lst= await loadData() ;
   List<Subject> result=[];
   var t=dates[DateFormat('EEEE').format(DateTime.now())];
-  result=getSubjectByWeek(lst[0],14);
-  List<Subject> result1= getSubjectByWeek(lst[1],14);
+  int todayWeek= caculateCurrentWeek();
+  result=getSubjectByWeek(lst[0],todayWeek);
+  List<Subject> result1= getSubjectByWeek(lst[1],todayWeek);
   if (result1.length!=0)
   {
       result1.forEach((element) {
@@ -164,10 +173,7 @@ Future<List<Semester>> loadData() async
   List<Semester> result= [];
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/amy_file.txt');
-  if (file.existsSync()==false)
-    {
-      await getLastReady();
-    }
+
   String text = await file.readAsString();
   final jsonData=  jsonDecode(text);
   (jsonData["result"] as List).forEach((element) {
@@ -199,7 +205,6 @@ Future<Map<String,String>> loadStateLogin() async
         "password": decryptFernet(json_data["da;xzcmzxcoiz"]),
         "run":decryptFernet(json_data["mzcnzxueiqwe"])
       };
-  print(result);
   return result;
 }
 
