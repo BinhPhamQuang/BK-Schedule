@@ -99,10 +99,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
                    leading: Icon(Icons.info_rounded,color: kPrimaryColor,),
                    trailing: Icon(Icons.keyboard_arrow_right),
                    onTap: (){
-                     showDialog(context: context, builder: (context)
-                     {
-                       return AppInfo();
-                     });
+                     // showDialog(context: context, builder: (context)
+                     // {
+                     //   return AppInfo();
+                     // });
+
+                     showAboutDialog(context: context,applicationVersion: "1.01",  applicationName: "BKSchedule", children: [
+                       Container(
+                         child: Column(
+                           children: [
+                             //Image(image: AssetImage("assets/photos/logo.png"),),
+                             Text("From HCMUT K18 with love !", style: TextStyle(fontWeight: FontWeight.normal, color: Colors.pinkAccent ),),
+                             SizedBox(height: 50,),
+                             Text("Developed by",style: TextStyle(fontWeight: FontWeight.normal,fontSize:size.width*0.05, color: Colors.blueGrey ),),
+                             SizedBox(height: 10,),
+                             Text("Lie",style: TextStyle(fontWeight: FontWeight.normal,fontSize:size.width*0.07  ),),
+                             SizedBox(height: 50,),
+                             Text("Contact",style: TextStyle(fontWeight: FontWeight.normal,fontSize:size.width*0.05, color: Colors.blueGrey ),),
+                             SizedBox(height: 10,),
+                             Text("liebkschedule@gmail.com",style: TextStyle(fontWeight: FontWeight.normal,  ),),
+                             SizedBox(height: 50,),
+                             Text("All rights reserved !",style: TextStyle(fontWeight: FontWeight.normal, color: Colors.blueGrey ),),
+                           ],
+                           mainAxisAlignment: MainAxisAlignment.start,
+                         ),
+
+                       ),
+
+
+
+
+                     ]);
+
                    },
                  ),
 
