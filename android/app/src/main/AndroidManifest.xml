@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bkschedule">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
+
         android:label="bkschedule"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -38,4 +40,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
 </manifest>

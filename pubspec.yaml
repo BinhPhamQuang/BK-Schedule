@@ -35,7 +35,7 @@ dependencies:
   encrypt: ^5.0.0
   flutter_gifimage: ^1.0.0
   flutter_markdown: ^0.6.2
-
+  connectivity: ^3.0.6
   #datetime
   intl: ^0.16.1
 

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:bkschedule/DTO/encrypt.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:developer' as dev;
@@ -211,6 +212,8 @@ Future<Map<String,String>> loadStateLogin() async
 
 Future<int> savedStateLogin(String username,String password, String run) async
 {
+
+
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/user.txt');
   var body={
@@ -227,6 +230,14 @@ Future<int> savedStateLogin(String username,String password, String run) async
 Future<int> postFirstRun(String username,String password) async
 {
   dev.log("running first run");
+  dev.log("check internet connection");
+  final checkConnection = await Connectivity().checkConnectivity();
+
+  if( checkConnection==ConnectivityResult.none)
+    {
+      return -3;
+    }
+  dev.log("checked !");
   String run_token= await postRun(username, password);
   dev.log("run token: $run_token");
   int status=-1;

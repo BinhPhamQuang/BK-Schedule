@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/Login/login.dart';
@@ -30,6 +32,7 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
   }
 
   late GifController controller;
+
   @override
   void initState()
   {
@@ -37,6 +40,8 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
     controller=GifController(vsync: this );
     controller.repeat(min:0,max:29,period:Duration(milliseconds:800));
   }
+
+
   // @override
   // void dispose()
   // {
@@ -49,6 +54,7 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
 
 
     Size size= MediaQuery.of(context).size;
+
     return Scaffold(
       body:
           Container(
@@ -59,6 +65,18 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
               {
                 if(snapshot.hasData)
                   {
+
+                    if ((snapshot.data as int) == -3 )
+                    {
+                      return AlertDialog(
+                        title: Text("Login failed"),
+                        content: Text("You must have internet connection !") ,
+                        actions: [
+                          FlatButton(onPressed: (){    Navigator.pop(context,false);}, child: Text("OK"))
+                        ],
+
+                      );
+                    }
                     if ((snapshot.data as int) == -2 )
                       {
                         return AlertDialog(
@@ -73,6 +91,8 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
                     //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
                     return HomeScreen();
                   }
+
+
                 return Container(
                     alignment: Alignment.center,
                     child:  GifImage(
