@@ -8,8 +8,8 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final Function? press;
   final Color color,textcolor;
-  final TextEditingController txtUsername;
-  final TextEditingController txtPassword;
+  final String txtUsername;
+  final String txtPassword;
   const RoundedButton({Key? key, this.text="LOGIN", this.press, required this.color, required this.textcolor, required this.txtUsername, required this.txtPassword}) : super(key: key);
 
   @override
@@ -24,25 +24,11 @@ class RoundedButton extends StatelessWidget {
           //padding: EdgeInsets.symmetric(vertical: 20,horizontal: 30),
           color: color,
           onPressed: () {
-
-            //postRun("binh.pham.quang", "quangbinh1340");
-            //int savedState= await savedStateLogin("12345", "1234","123");
-            //Future<int> savedState= savedStateLogin("12345", "1234","123");
-            //    FutureBuilder <int>(
-            //   future: savedStateLogin("12345", "1234","123"),
-            //   builder: (context,snapshot)
-            //   {
-            //     dev.log('In Builder');
-            //     if(snapshot.hasData)
-            //       {
-            //         Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
-            //       }
-            //     return CircularProgressIndicator();
-            //   },
-            // );
-            if(txtUsername.text.length!=0 && txtPassword.text.length!=0)
+            print(txtUsername);
+            if(txtUsername.length!=0 && txtPassword.length!=0)
             {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(txtUsername.text,txtPassword.text)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(txtUsername,txtPassword)));
+
             }
 
 

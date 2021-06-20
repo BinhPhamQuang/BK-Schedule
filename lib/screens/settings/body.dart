@@ -123,6 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   child: Text("Sign out ",style: TextStyle(color: Colors.red,fontSize: size.width*0.05),),
                   onPressed: () async{
+                    
                     final directory= await getApplicationDocumentsDirectory();
                     final file = File('${directory.path}/user.txt');
                     if( file.existsSync())
@@ -134,7 +135,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         {
                         }
                       }
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp()));
+                    runApp(new MaterialApp(home: new MyApp(),));
+                   // Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp()));
                   },
 
                   ),

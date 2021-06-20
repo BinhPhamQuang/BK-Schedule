@@ -5,7 +5,7 @@ import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/Login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gifimage/flutter_gifimage.dart';
-
+import 'dart:developer' as dev;
 
 class LoadingScreen extends StatefulWidget
 {
@@ -30,37 +30,36 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
     _txtUsername=txtUsername;
     _txtPassword=txtPassword;
   }
-
+  late Future <int> future;
   late GifController controller;
 
   @override
   void initState()
   {
+    future=postFirstRun(_txtUsername, _txtPassword);
     super.initState();
     controller=GifController(vsync: this );
     controller.repeat(min:0,max:29,period:Duration(milliseconds:800));
   }
 
-
-  // @override
-  // void dispose()
-  // {
-  //   super.dispose();
-  //   _txtPassword.dispose();
-  //   _txtUsername.dispose();
-  // }
+  @override
+  void dispose()
+  {
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 
 
     Size size= MediaQuery.of(context).size;
-
+    dev.log("loading screen init");
     return Scaffold(
       body:
           Container(
             alignment: Alignment.center,
             child: FutureBuilder <int>(
-              future: postFirstRun(_txtUsername, _txtPassword),
+              future: future,
               builder: (context,snapshot)
               {
                 if(snapshot.hasData)
@@ -83,7 +82,7 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
                           title: Text("Login failed"),
                           content: Text("Wrong username, password :(") ,
                           actions: [
-                            FlatButton(onPressed: (){    Navigator.pop(context,false);}, child: Text("OK"))
+                            FlatButton(onPressed: (){    Navigator.of(context).pop(true); }, child: Text("OK"))
                           ],
 
                         );

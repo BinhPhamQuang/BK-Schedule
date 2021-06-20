@@ -5,6 +5,7 @@ import 'package:bkschedule/screens/components/TextBoxContainer.dart';
 import 'package:bkschedule/screens/components/policidialog.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:bkschedule/screens/components/rounded_input_field.dart';
+import 'package:bkschedule/screens/loading/loadingScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,13 +20,13 @@ class Background extends State<Body > {
   final txtUsername=TextEditingController();
   final txtPassword= TextEditingController();
 
-  // @override
-  // void dispose()
-  // {
-  //   txtUsername.dispose();
-  //   txtPassword.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose()
+  {
+    txtUsername.dispose();
+    txtPassword.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
@@ -71,11 +72,31 @@ class Background extends State<Body > {
                           ),
                         ),
                     ),
-                    RoundedButton(
-                      text: "LOGIN", color: kPrimaryColor,
-                      textcolor: Colors.white,
-                      txtUsername: txtUsername,
-                      txtPassword: txtPassword,
+                    Container(
+                      width: size.width*0.8,
+                      height: size.height*0.075,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: RaisedButton(
+                          //padding: EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                          color: kPrimaryColor,
+                          onPressed: () {
+                            if(txtUsername.text.length!=0 && txtPassword.text.length!=0)
+                            {
+                              String username= txtUsername.text;
+                              String password= txtPassword.text;
+                              txtUsername.clear();
+                              txtPassword.clear();
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(username,password)));
+                            }
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white,fontSize: size.width*0.05 ),
+                          ),
+                        ),
+
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
