@@ -1,6 +1,7 @@
 
 import 'dart:developer';
 
+import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -189,8 +190,8 @@ class TopLabel extends StatelessWidget {
 
               Row(
                 children: [
-                  Text("Hi ",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.normal),),
-                  Text("Binh",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.bold),),
+                  Text("Hello ",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.normal),),
+                  Text("",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.bold),),
                 ],
               ),
               RichText(

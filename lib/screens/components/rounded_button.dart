@@ -40,7 +40,12 @@ class RoundedButton extends StatelessWidget {
             //     return CircularProgressIndicator();
             //   },
             // );
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(txtUsername.text,txtPassword.text)));
+            if(txtUsername.text.length!=0 && txtPassword.text.length!=0)
+            {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(txtUsername.text,txtPassword.text)));
+            }
+
+
             },
           child: Text(
                 text,

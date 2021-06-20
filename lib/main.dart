@@ -4,6 +4,7 @@ import 'package:bkschedule/screens/AddTask/add_task.dart';
 import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/Login/login.dart';
 import 'package:bkschedule/screens/Schedules/body.dart';
+import 'package:bkschedule/screens/loading/loadingScreen.dart';
 import 'package:bkschedule/test.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';

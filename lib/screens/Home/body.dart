@@ -82,7 +82,7 @@ class _HomeScreen extends State<HomeScreen>
           BottomNavigationBarItem(
               backgroundColor: kPrimaryColor,
               icon: Icon(Icons.schema_outlined),
-              title: Text("TKB")
+              title: Text("Timetable")
           ),
           BottomNavigationBarItem(
               backgroundColor: kPrimaryColor,

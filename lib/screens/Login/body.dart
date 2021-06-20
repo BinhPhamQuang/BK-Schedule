@@ -2,6 +2,7 @@ import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Home/body.dart';
 import 'package:bkschedule/screens/components/TextBoxContainer.dart';
+import 'package:bkschedule/screens/components/policidialog.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:bkschedule/screens/components/rounded_input_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,11 +77,31 @@ class Background extends State<Body > {
                       txtUsername: txtUsername,
                       txtPassword: txtPassword,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                     TextButton(
-
-                      child: Text("Điều khoản sử dụng"),
-                      onPressed: () {  },
+                    child: Text("Privacy policy"),
+                    onPressed: () {
+                      showDialog(context: context, builder: (context)
+                      {
+                        return PolicyDialog(mdFileName: "privacy.md");
+                      });
+                    },
                     ),
+                        TextButton(
+                          child: Text("Terms & Conditions"),
+                          onPressed: () {
+                            showDialog(context: context, builder: (context)
+                            {
+                              return PolicyDialog(mdFileName: "term.md");
+                            });
+                          },
+                        ),
+
+                    ]
+                    ),
+
                   ],
                 ),
               ),

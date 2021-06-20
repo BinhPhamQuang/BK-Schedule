@@ -33,6 +33,9 @@ dependencies:
   http: ^0.12.0+2
   path_provider: ^2.0.2
   encrypt: ^5.0.0
+  flutter_gifimage: ^1.0.0
+  flutter_markdown: ^0.6.2
+
   #datetime
   intl: ^0.16.1
 

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/main.dart';
+import 'package:bkschedule/screens/components/appinfo.dart';
+import 'package:bkschedule/screens/components/policidialog.dart';
 import 'package:bkschedule/screens/components/rounded_button.dart';
 import 'package:bkschedule/screens/loading/loadingScreen.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +26,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                margin: EdgeInsets.only(bottom: size.width*0.1),
-                child: Image(image: AssetImage("assets/photos/logo.png"),width: size.width*0.8,)),
+                child: Image(image: AssetImage("assets/photos/logo.png"),width: size.width*0.6,)),
+            Card(
+              elevation: 4,
+              margin: EdgeInsets.fromLTRB(25, 18, 25, 16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisSize:MainAxisSize.min,
+                children: [
+                  SwitchListTile(
+                    value: false,
+                    onChanged: (val){},
+                    activeColor: kPrimaryColor,
+                    title: Text("Automatic update timetable"),
+                  ),
+                  _buildDivicer(),
+                  SwitchListTile(
+                    value: true,
+                    onChanged: (val){},
+                    activeColor: kPrimaryColor,
+                    title: Text("Show deadline online courses"),
+                  ),
+
+                ],
+              ),
+            ),
 
             Card(
               elevation: 4,
@@ -34,24 +59,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                   mainAxisSize:MainAxisSize.min,
                 children: [
-                   SwitchListTile(
-                       value: true,
-                       onChanged: (val){},
-                       activeColor: kPrimaryColor,
-                       title: Text("Hiện deadline các khóa học online"),
-                   ),
-                  _buildDivicer(),
-                  // SwitchListTile(
-                  //   value: true,
-                  //   onChanged: (val){},
-                  //   activeColor: kPrimaryColor,
-                  //   title: Text("Tự động cập nhật thời khóa biểu"),
-                  // ),
-                  // _buildDivicer(),
 
                   ListTile(
-                    title: Text("Refresh thời khóa biểu"),
-                    leading: Icon(Icons.refresh,color: kPrimaryColor,),
+                    title: Text("Update timetable"),
+                    leading: Icon(Icons.update,color: kPrimaryColor,),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () async {
                       Map<String,String> load= await loadStateLogin();
@@ -60,17 +71,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   _buildDivicer(),
                   ListTile(
-                    title: Text("Điều khoản sử dụng"),
-                    leading: Icon(Icons.info,color: kPrimaryColor,),
+                    title: Text("Terms & Conditions"),
+                    leading: Icon(Icons.policy,color: kPrimaryColor,),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: (){},
+                    onTap: (){
+                      showDialog(context: context, builder: (context)
+                      {
+                        return PolicyDialog(mdFileName: "term.md");
+                      });
+                    },
                   ),
                  _buildDivicer(),
+                  ListTile(
+                    title: Text("Privacy policy"),
+                    leading: Icon(Icons.privacy_tip,color: kPrimaryColor,),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: (){
+                      showDialog(context: context, builder: (context)
+                      {
+                        return PolicyDialog(mdFileName: "privacy.md");
+                      });
+                    },
+                  ),
+                  _buildDivicer(),
                  ListTile(
                    title: Text("App info"),
-                   leading: Icon(Icons.info,color: kPrimaryColor,),
+                   leading: Icon(Icons.info_rounded,color: kPrimaryColor,),
                    trailing: Icon(Icons.keyboard_arrow_right),
-                   onTap: (){},
+                   onTap: (){
+                     showDialog(context: context, builder: (context)
+                     {
+                       return AppInfo();
+                     });
+                   },
                  ),
 
                 ],

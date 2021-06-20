@@ -45,12 +45,12 @@ class HomeBody extends StatelessWidget {
                             ),
                           ),
                         ),
-                        IconButton(onPressed: (){print('clicked');}, icon: Icon(
-                          Icons.create_sharp,
-                          size:size.width*0.065,
-                          color: kSectionColor,
-                        ),
-                        ),
+                        // IconButton(onPressed: (){print('clicked');}, icon: Icon(
+                        //   Icons.create_sharp,
+                        //   size:size.width*0.065,
+                        //   color: kSectionColor,
+                        // ),
+                        // ),
                       ],
                     ),
                   ),
