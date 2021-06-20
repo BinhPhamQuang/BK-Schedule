@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 class LoadingScreen extends StatefulWidget
 {
 
-  late TextEditingController _txtUsername;
-  late TextEditingController _txtPassword;
-  LoadingScreen(TextEditingController txtUsername, TextEditingController txtPassword)
+  late String _txtUsername;
+  late String _txtPassword;
+  LoadingScreen(String txtUsername, String txtPassword)
   {
     _txtUsername=txtUsername;
     _txtPassword=txtPassword;
@@ -20,9 +20,9 @@ class LoadingScreen extends StatefulWidget
 
 class _LoadingScreen extends State<LoadingScreen>
 {
-  late TextEditingController _txtUsername;
-  late TextEditingController _txtPassword;
-  _LoadingScreen(TextEditingController txtUsername, TextEditingController txtPassword)
+  late String _txtUsername;
+  late String _txtPassword;
+  _LoadingScreen(String txtUsername, String txtPassword)
   {
     _txtUsername=txtUsername;
     _txtPassword=txtPassword;
@@ -47,7 +47,7 @@ class _LoadingScreen extends State<LoadingScreen>
           Container(
             alignment: Alignment.center,
             child: FutureBuilder <int>(
-              future: postFirstRun(_txtUsername.text, _txtPassword.text),
+              future: postFirstRun(_txtUsername, _txtPassword),
               builder: (context,snapshot)
               {
                 if(snapshot.hasData)

@@ -6,6 +6,7 @@ import 'package:bkschedule/DTO/Subject.dart';
 import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Schedules/body.dart';
+import 'package:bkschedule/screens/settings/body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -47,7 +48,7 @@ class _HomeScreen extends State<HomeScreen>
 
     Widget _schedules= SchedulesScreen();
     Widget _home= HomeBody(futureData: futureData);
-
+    Widget _settings= SettingsScreen();
 
     void onTapHander(int index)
     {
@@ -66,6 +67,10 @@ class _HomeScreen extends State<HomeScreen>
       else if (selectedIndex==1)
         {
           return _home;
+        }
+      else if(selectedIndex==3)
+        {
+          return _settings;
         }
       return _home;
     }
