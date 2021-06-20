@@ -110,6 +110,7 @@ Future<List<Semester>> getAllSemester() async
 }
 
 
+
 Future<int> getLastReady() async
 {
   print("get last ready run running..");
@@ -254,7 +255,7 @@ async {
   var client= new Client();
   dev.log("starting post ...");
   String url="https://bk-schedule.herokuapp.com/post-run/";
-  var body= {"username":username,"password":password};
+  var body= {"username":encryptRSA(username),"password":encryptRSA(password)};
   Response response= await client.post(
       url,
       headers: <String, String>{

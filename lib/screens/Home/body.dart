@@ -44,8 +44,6 @@ class _HomeScreen extends State<HomeScreen>
       Task("Database system", "MT1005", 1)
     ];
 
-
-
     Widget _schedules= SchedulesScreen();
     Widget _home= HomeBody(futureData: futureData);
     Widget _settings= SettingsScreen();

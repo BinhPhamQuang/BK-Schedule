@@ -40,13 +40,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                        activeColor: kPrimaryColor,
                        title: Text("Hiện deadline các khóa học online"),
                    ),
-                  SwitchListTile(
-                    value: true,
-                    onChanged: (val){},
-                    activeColor: kPrimaryColor,
-                    title: Text("Tự động cập nhật thời khóa biểu"),
-                  ),
                   _buildDivicer(),
+                  // SwitchListTile(
+                  //   value: true,
+                  //   onChanged: (val){},
+                  //   activeColor: kPrimaryColor,
+                  //   title: Text("Tự động cập nhật thời khóa biểu"),
+                  // ),
+                  // _buildDivicer(),
 
                   ListTile(
                     title: Text("Refresh thời khóa biểu"),
@@ -57,6 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(load["username"] as String,load["password"] as String)));
                     },
                   ),
+                  _buildDivicer(),
                   ListTile(
                     title: Text("Điều khoản sử dụng"),
                     leading: Icon(Icons.info,color: kPrimaryColor,),
@@ -74,6 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
+
         Container(
           width: double.infinity,
           margin: EdgeInsets.fromLTRB(25, 25, 25, 0),
@@ -117,7 +120,7 @@ Container _buildDivicer()
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     width: double.infinity,
-    height: 0.5,
+    height: 0.3,
     color: Colors.blueGrey,
   );
 }
