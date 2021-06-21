@@ -7,6 +7,7 @@ import 'package:bkschedule/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 class ItemTask extends StatelessWidget {
@@ -220,6 +221,26 @@ class TopLabel extends StatelessWidget {
         color: kPrimaryColor,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
+      // child:
+      // TableCalendar(
+      //   focusedDay: DateTime.now(),
+      //   lastDay: DateTime.utc(2030, 3, 14),
+      //   firstDay: DateTime.utc(2010, 10, 16),
+      //   headerStyle: HeaderStyle(
+      //     titleCentered: true,
+      //   ),
+      //   calendarStyle: CalendarStyle(
+      //     defaultTextStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
+      //     weekendTextStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
+      //     todayTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
+      //
+      //     todayDecoration: BoxDecoration(
+      //       color: Colors.white,
+      //       borderRadius: BorderRadius.circular(1000),
+      //     ),
+      //   ),
+      //
+      // ),
       child: Column(
         children: [
           Row(
@@ -228,8 +249,8 @@ class TopLabel extends StatelessWidget {
 
               Row(
                 children: [
-                  Text("Hello ",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.normal),),
-                  Text("",style: TextStyle(fontSize: size.width*0.07,color: Colors.white,fontWeight: FontWeight.bold),),
+                  Text("Week ",style: TextStyle(fontSize: size.width*0.04,color: Colors.white,fontWeight: FontWeight.normal),),
+                  Text(caculateCurrentWeek().toString(),style: TextStyle(fontSize: size.width*0.07,color: Colors.orangeAccent,fontWeight: FontWeight.bold),),
                 ],
               ),
               RichText(
