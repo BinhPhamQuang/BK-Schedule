@@ -24,28 +24,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen>
 {
-  Future <List<Subject>> futureData=getTodaySubject();
+  late Future <List<Subject>> futureData;
+  late Future <List<Task>> futureTask;
+
   int selectedIndex=1;
 
 
   @override
   void initState()
   {
-    super.initState();
-
     futureData=getTodaySubject();
-
+    futureTask= loadDeadline();
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    var lst_task=[
-      Task("Database system", "MT1005", 1),
-      Task("Database system", "MT1005", 1),
-      Task("Database system", "MT1005", 1)
-    ];
 
     Widget _schedules= SchedulesScreen();
-    Widget _home= HomeBody(futureData: futureData);
+    Widget _home= HomeBody(futureData: futureData,futureTask:futureTask);
     Widget _settings= SettingsScreen();
 
     void onTapHander(int index)

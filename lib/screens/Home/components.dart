@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:bkschedule/DTO/Class.dart';
+import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,26 +10,53 @@ import 'package:intl/intl.dart';
 
 
 class ItemTask extends StatelessWidget {
-  final int timeRemaining;
-  final String nameTask;
-  const ItemTask({
+
+  final Task task;
+
+   ItemTask({
     Key? key,
-    required this.size, required this.timeRemaining, required this.nameTask,
+    required this.size, required this.task
   }) : super(key: key);
 
   final Size size;
+  late var color;
+  late var background= kPrimaryLightColor;
+  late var borderColor= kPrimaryColor;
+  late int time_remaining;
+  int caculateTimeRemaining()
+  {
+    DateTime now= DateTime.now();
+    int between= (task.date.difference(now).inHours/24).round();
 
+    if (between<=1)
+      {
+        background= Color(0xFFFFDEDC);
+        color=Colors.redAccent;
+        borderColor=Color(0xFFFF9C96);
+      }
+    else if(between>1 && between<=3)
+      {
+        color=Colors.deepOrange;
+        borderColor=Color(0xFFF9D350);
+        background=Color(0xFFFFF7DB);
+      }
+    else
+      {
+        color=Colors.green;
+      }
+    return between;
+  }
   @override
   Widget build(BuildContext context) {
+    time_remaining=caculateTimeRemaining();
     return Container(
-      margin: EdgeInsets.only(right: 10),
+      margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.all(10),
-      width: size.width*0.38,
-      height: size.width*0.44,
+      width: size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: kPrimaryColor,width: 3),
+        border: Border.all(color: borderColor,width: 3),
           borderRadius: BorderRadius.circular(20),
-          color: kTextBoxColor
+          color: background
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,19 +69,28 @@ class ItemTask extends StatelessWidget {
                 width: size.height*0.02,
                 height: size.height*0.02,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: color,
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
+              SizedBox(width: 10,),
+              Text(DateFormat.yMMMd().format(task.date),style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.bold),),
               SizedBox(width: 5,),
-              Text(timeRemaining.toString(),style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.bold),),
-              SizedBox(width: 5,),
-              Text("days left",style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.bold),),
+              Text(task.time,style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.bold),),
 
             ],
           ),
           SizedBox(height: 20,),
-          Text(nameTask,style: TextStyle(fontSize: size.height*0.03,color: Colors.black,fontWeight: FontWeight.bold),),
+          Container(
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(task.title,style: TextStyle(fontSize: size.height*0.03,color: Colors.black,fontWeight: FontWeight.bold),)
+              )
+          ),
+          SizedBox(height: 5,),
+        Container(child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+            child: Text(task.course,style: TextStyle(fontSize: size.height*0.025,color: Colors.black,fontWeight: FontWeight.normal),))),
         ],
       ),
     );

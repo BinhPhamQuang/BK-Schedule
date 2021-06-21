@@ -1,6 +1,7 @@
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/DTO/Subject.dart';
 import 'package:bkschedule/DTO/encrypt.dart';
+import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/screens/Home/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,11 @@ class HomeBody extends StatelessWidget {
   const HomeBody({
     Key? key,
 
-    required this.futureData,
+    required this.futureData, required this.futureTask
   }) : super(key: key);
 
   final Future<List<Subject>> futureData;
+  final Future<List<Task>> futureTask;
   @override
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
@@ -110,20 +112,42 @@ class HomeBody extends StatelessWidget {
 
                   //return ListTile(title: ItemTask(size: size,nameTask: lst_task[index].name,timeRemaining: lst_task[index].dayRemaining,),);
                   Container(
-                    margin: EdgeInsets.only(left: 10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
 
-                        children: [
-                          ItemTask(size: size,nameTask: "Principle programing language",timeRemaining: 3,),
-                          ItemTask(size: size,nameTask: "Database system",timeRemaining: 4,),
-                          ItemTask(size: size,nameTask: "Computer networking",timeRemaining: 5,),
-                          ItemTask(size: size,nameTask: "Computer networking",timeRemaining: 5,),
-                        ],
+                    margin: EdgeInsets.only(left: 10,right: 10),
+                      child: FutureBuilder <List<Task>> (
+                        future: futureTask,
+                        builder: (context,snapshot)
+                        {
+                          if(snapshot.hasData)
+                            {
+                              List<Task> data= snapshot.data as List<Task>;
+                              if(data.length==0)
+                                {
+                                  return  Text("You finished all assignments ^-^", style: TextStyle(fontSize: size.width*0.05, color: Colors.blueGrey),);
+                                }
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: data.length,
+                                itemBuilder: (BuildContext context, int index)
+                                {
+                                  return ItemTask(size: size, task: data[index],);
+                                },
+                              );
+                            }
+                          return CircularProgressIndicator();
+                        },
                       ),
+                      // child: Row(
+                      //   children: [
+                      //     ItemTask(size: size,nameTask: "Principle programing language",timeRemaining: 3,),
+                      //     ItemTask(size: size,nameTask: "Database system",timeRemaining: 4,),
+                      //     ItemTask(size: size,nameTask: "Computer networking",timeRemaining: 5,),
+                      //     ItemTask(size: size,nameTask: "Computer networking",timeRemaining: 5,),
+                      //   ],
+                      // ),
                     ),
-                  )
                 ],
               ),
             ),

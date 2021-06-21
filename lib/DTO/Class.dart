@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/DTO/encrypt.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart';
@@ -101,7 +102,6 @@ Future<List<Subject>> getTodaySubject() async {
         result.add(element);
       });
   }
-  caculateCurrentWeek();
   return result;
 }
 
@@ -170,9 +170,26 @@ Future<int> getRun(String run,String runBkel) async
 }
 
 
+Future<List<Task>> loadDeadline() async
+{
+  dev.log("load deadline");
+  List<Task> result=[];
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/amy_file.txt');
+  String text = await file.readAsString();
+  final jsonData=  jsonDecode(text);
+  (jsonData["deadline"] as List).forEach((dateDeadline) {
+    (dateDeadline["tests"] as List).forEach((element) {
+      result.add(Task.convertJsonObject(element,DateFormat(' dd MMMM yyyy').parse(dateDeadline["date"])));
+    });
+  });
+
+  return result;
+}
+
 Future<List<Semester>> loadData() async
 {
-
+  dev.log("load data");
   List<Semester> result= [];
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/amy_file.txt');
