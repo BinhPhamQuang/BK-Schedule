@@ -88,6 +88,7 @@ class _LoadingScreen extends State<LoadingScreen> with TickerProviderStateMixin
                         );
                       }
                     //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+
                     return HomeScreen();
                   }
 

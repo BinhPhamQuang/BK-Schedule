@@ -135,10 +135,10 @@ Future<int> getLastReady() async
 }
 
 
-Future<int> getRun(String run) async
+Future<int> getRun(String run,String runBkel) async
 {
   dev.log("get run running..");
-  String url="https://bk-schedule.herokuapp.com/get-run/"+run;
+  String url="https://bk-schedule.herokuapp.com/get-run/"+run+"/"+runBkel;
   //List<Semester> result= [];
   Response response= await get(url);
   int statusCode=response.statusCode;
@@ -146,11 +146,12 @@ Future<int> getRun(String run) async
   final jsonData=  jsonDecode(body);
   final ta= jsonData["result"];
   dev.log("jsonData: $ta");
+  dev.log("jsonDeadline: ${jsonData["deadline"]}");
   if(jsonData["result"]==-2)
     {
       return -2;
     }
-  else if(jsonData["result"]==-1)
+  else if(jsonData["result"]==-1 || jsonData["deadline"]==-1)
     {
       return -1;
     }
@@ -205,12 +206,13 @@ Future<Map<String,String>> loadStateLogin() async
       {
         "username": decryptFernet(json_data["djlkasjdczx"]),
         "password": decryptFernet(json_data["da;xzcmzxcoiz"]),
-        "run":decryptFernet(json_data["mzcnzxueiqwe"])
+        "run":decryptFernet(json_data["mzcnzxueiqwe"]),
+        "runbkel":decryptFernet(json_data["kzxjcaiuasdias"])
       };
   return result;
 }
 
-Future<int> savedStateLogin(String username,String password, String run) async
+Future<int> savedStateLogin(String username,String password, List<String> run) async
 {
 
 
@@ -219,7 +221,8 @@ Future<int> savedStateLogin(String username,String password, String run) async
   var body={
     "djlkasjdczx":encryptFernet(username), //username
     "da;xzcmzxcoiz":encryptFernet(password), //password
-    "mzcnzxueiqwe":encryptFernet(run) // run
+    "mzcnzxueiqwe":encryptFernet(run[0]), // run
+    "kzxjcaiuasdias":encryptFernet(run[1]) // run bkel
   };
   await file.writeAsString(jsonEncode(body));
   dev.log("Write file finished");
@@ -238,13 +241,13 @@ Future<int> postFirstRun(String username,String password) async
       return -3;
     }
   dev.log("checked !");
-  String run_token= await postRun(username, password);
+  List<String> run_token= await postRun(username, password);
   dev.log("run token: $run_token");
   int status=-1;
   while(true)
     {
       dev.log("looping: $status");
-      status= await getRun(run_token);
+      status= await getRun(run_token[0],run_token[1]);
       if(status==-2)
         {
           return -2;
@@ -260,7 +263,7 @@ Future<int> postFirstRun(String username,String password) async
 }
 
 
-Future<String> postRun(String username,String password)
+Future<List<String>> postRun(String username,String password)
 // return the run token
 async {
   var client= new Client();
@@ -278,5 +281,5 @@ async {
   dev.log("post finished");
   final jsonData=  jsonDecode(result);
   client.close();
-  return jsonData["result"];
+  return [jsonData["result"],jsonData["result_bkel"]];
 }

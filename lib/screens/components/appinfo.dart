@@ -15,6 +15,7 @@ class AppInfo extends StatelessWidget
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
+          width: 200,
           padding: EdgeInsets.only(top: 30,left: 20,right: 20,bottom: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
