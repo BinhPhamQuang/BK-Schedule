@@ -178,10 +178,10 @@ Future<List<Task>> loadDeadline() async
   final file = File('${directory.path}/amy_file.txt');
   String text = await file.readAsString();
   final jsonData=  jsonDecode(text);
+  print(jsonData["deadline"]);
   (jsonData["deadline"] as List).forEach((dateDeadline) {
-    (dateDeadline["tests"] as List).forEach((element) {
-      result.add(Task.convertJsonObject(element,DateFormat(' dd MMMM yyyy').parse(dateDeadline["date"])));
-    });
+      result.add(Task.convertJsonObject(dateDeadline,DateFormat(' dd MMMM yyyy').parse(dateDeadline["date"])));
+
   });
 
   return result;
