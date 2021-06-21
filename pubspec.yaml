@@ -36,8 +36,9 @@ dependencies:
   flutter_gifimage: ^1.0.0
   flutter_markdown: ^0.6.2
   connectivity: ^3.0.6
+  table_calendar: ^3.0.0
   #datetime
-  intl: ^0.16.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

@@ -201,13 +201,14 @@ class ItemClass extends StatelessWidget {
 class TopLabel extends StatelessWidget {
   const TopLabel({
     Key? key,
-    required this.size,
+
   }) : super(key: key);
 
-  final Size size;
+
 
   @override
   Widget build(BuildContext context) {
+    Size size= MediaQuery.of(context).size;
     DateTime now = new DateTime.now();
     String date= DateFormat("EEEE").format(now).toString()+" ";
     String day=DateFormat("d").format(now).toString()+" "+DateFormat("MMM").format(now).toString();

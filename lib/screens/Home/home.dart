@@ -17,17 +17,16 @@ class HomeBody extends StatelessWidget {
 
   final Future<List<Subject>> futureData;
   final Future<List<Task>> futureTask;
+
   @override
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
     return
       SingleChildScrollView(
         child: Column(
-
           children: [
-            TopLabel(size: size),
+            TopLabel(),
             Container(
-
               padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
               child: Column(
                 //mainAxisSize: MainAxisSize.min,

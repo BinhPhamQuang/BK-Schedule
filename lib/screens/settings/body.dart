@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     value: true,
                     onChanged: (val){},
                     activeColor: kPrimaryColor,
-                    title: Text("Show deadline online courses"),
+                    title: Text("Show deadline for online courses"),
                   ),
 
                 ],
