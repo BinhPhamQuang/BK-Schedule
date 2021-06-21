@@ -19,7 +19,7 @@ class Body extends StatefulWidget {
 class Background extends State<Body > {
   final txtUsername=TextEditingController();
   final txtPassword= TextEditingController();
-
+  bool _isObscure=true;
   @override
   void dispose()
   {
@@ -29,6 +29,7 @@ class Background extends State<Body > {
   }
   @override
   Widget build(BuildContext context) {
+
     Size size= MediaQuery.of(context).size;
     return Container(
       width: size.width,
@@ -62,13 +63,20 @@ class Background extends State<Body > {
                     TextBoxContainer(
                         child: TextField(
                           controller: txtPassword,
-                          obscureText: true,
+                          obscureText: _isObscure,
                           decoration: InputDecoration(
                             hintText: "Password",
                             icon: Icon(Icons.lock,color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
-                            //suffixIcon: Icon(Icons.visibility,color: kPrimaryColor,)
+                            suffixIcon: IconButton(
+                              icon:Icon( _isObscure ? Icons.visibility : Icons.visibility_off,color: kPrimaryColor),
+                              onPressed: (){
+                                setState(() {
+                                  _isObscure= ! _isObscure;
+                                });
+                              },
+                            )
                           ),
                         ),
                     ),
