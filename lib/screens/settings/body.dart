@@ -163,6 +163,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         {
                         }
                       }
+                    final file1 = File('${directory.path}/tests.txt');
+                    if(file1.existsSync())
+                      {
+                        try
+                            {
+                              await file1.delete();
+                            }
+                            catch(_)
+                    {
+
+                    }
+                      }
                     runApp(new MaterialApp(home: new MyApp(),));
                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp()));
                   },

@@ -6,6 +6,7 @@ import 'package:bkschedule/DTO/Subject.dart';
 import 'package:bkschedule/DTO/Task.dart';
 import 'package:bkschedule/constant.dart';
 import 'package:bkschedule/screens/Schedules/body.dart';
+import 'package:bkschedule/screens/Tests/tests.dart';
 import 'package:bkschedule/screens/settings/body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ class _HomeScreen extends State<HomeScreen>
     Widget _schedules= SchedulesScreen();
     Widget _home= HomeBody(futureData: futureData,futureTask:futureTask);
     Widget _settings= SettingsScreen();
+    Widget tests= TestsScreen();
 
     void onTapHander(int index)
     {
@@ -67,7 +69,7 @@ class _HomeScreen extends State<HomeScreen>
         {
           return _settings;
         }
-      return _home;
+      return tests;
     }
     Size size= MediaQuery.of(context).size;
     return Scaffold(
@@ -89,7 +91,7 @@ class _HomeScreen extends State<HomeScreen>
           BottomNavigationBarItem(
               backgroundColor: kPrimaryColor,
               icon: Icon(Icons.school_sharp),
-              title: Text("Lịch thi")
+              title: Text("Exams schedule")
           ),
           BottomNavigationBarItem(
             backgroundColor: kPrimaryColor,

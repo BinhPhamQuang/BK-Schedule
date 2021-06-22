@@ -30,8 +30,8 @@ class _SchedulesScreen extends State<SchedulesScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return MaterialApp(
-      home:  FutureBuilder <List<Semester>> (
+    return Scaffold(
+      body:  FutureBuilder <List<Semester>> (
         future: futureSemesters,
         builder: (context,snapshot)
         {
