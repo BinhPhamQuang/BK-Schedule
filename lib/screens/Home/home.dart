@@ -26,7 +26,7 @@ class HomeBody extends StatelessWidget {
       SingleChildScrollView(
         child: Column(
           children: [
-            TopLabel(),
+            TopLabel(size:size),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
               child: Column(

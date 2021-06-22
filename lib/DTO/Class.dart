@@ -18,8 +18,7 @@ import 'Subject.dart';
 
 dynamic dates={"Monday":2,"Tuesday":3,"Wednesday":4,"Thursday":5,"Friday":6,"Satuday":7,"Sunday":8};
 
-int current_week=-1;
-var date;
+
 
 String parseWeek(List<int> weeks)
 {
@@ -66,14 +65,28 @@ List<Subject> getSubjectByWeek(Semester semester,int week)
 }
 
 
-int caculateCurrentWeek()
+
+Future <List> getWeek() async
 {
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/amy_file.txt');
+
+  String text = await file.readAsString();
+  final jsonData=  jsonDecode(text);
+  var current_week=int.parse(jsonData["current_week"]);
+  var date= jsonData["date"];
+  return [current_week,date];
+}
+Future<int> caculateCurrentWeek()
+async {
   // current_week=3;
   // date="19/3/2021";
-  dev.log("current week:$current_week");
+
   DateTime now= DateTime.now();
-  int week=current_week;
-  DateTime from= new DateFormat('dd/MM/yyyy').parse(date);
+  var w= await getWeek();
+  int week=w[0];
+  dev.log("current week: $week");
+  DateTime from= new DateFormat('dd/MM/yyyy').parse(w[1]);
   from= DateTime(from.year,from.month,from.day);
   DateTime to= DateTime(now.year,now.month,now.day);
 
@@ -93,7 +106,7 @@ Future<List<Subject>> getTodaySubject() async {
   List<Semester> lst= await loadData() ;
   List<Subject> result=[];
   var t=dates[DateFormat('EEEE').format(DateTime.now())];
-  int todayWeek= caculateCurrentWeek();
+  int todayWeek=  await caculateCurrentWeek();
   result=getSubjectByWeek(lst[0],todayWeek);
   List<Subject> result1= getSubjectByWeek(lst[1],todayWeek);
   if (result1.length!=0)
@@ -174,14 +187,18 @@ Future<List<Task>> loadDeadline() async
 {
   dev.log("load deadline");
   List<Task> result=[];
+
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/amy_file.txt');
   String text = await file.readAsString();
-  final jsonData=  jsonDecode(text);
-  print(jsonData["deadline"]);
-  (jsonData["deadline"] as List).forEach((dateDeadline) {
-      result.add(Task.convertJsonObject(dateDeadline,DateFormat(' dd MMMM yyyy').parse(dateDeadline["date"])));
 
+  final jsonData=  jsonDecode(text);
+
+  (jsonData["deadline"] as List).forEach((dateDeadline) {
+    DateTime d;
+
+    Task t=Task.convertJsonObject(dateDeadline,DateFormat('dd MMMM yyyy').parse(dateDeadline["date"].toString().trim()));
+      result.add(t);
   });
 
   return result;
@@ -199,8 +216,7 @@ Future<List<Semester>> loadData() async
   (jsonData["result"] as List).forEach((element) {
     result.add(Semester.convertJsonObject(element));
   });
-  current_week=int.parse(jsonData["current_week"]);
-  date= jsonData["date"];
+
   return result;
 }
 

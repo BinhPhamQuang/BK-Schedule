@@ -201,15 +201,15 @@ class ItemClass extends StatelessWidget {
 
 class TopLabel extends StatelessWidget {
   const TopLabel({
-    Key? key,
+    Key? key, required this.size
 
   }) : super(key: key);
 
-
+  final size;
 
   @override
   Widget build(BuildContext context) {
-    Size size= MediaQuery.of(context).size;
+
     DateTime now = new DateTime.now();
     String date= DateFormat("EEEE").format(now).toString()+" ";
     String day=DateFormat("d").format(now).toString()+" "+DateFormat("MMM").format(now).toString();
@@ -250,7 +250,18 @@ class TopLabel extends StatelessWidget {
               Row(
                 children: [
                   Text("Week ",style: TextStyle(fontSize: size.width*0.04,color: Colors.white,fontWeight: FontWeight.normal),),
-                  Text(caculateCurrentWeek().toString(),style: TextStyle(fontSize: size.width*0.07,color: Colors.orangeAccent,fontWeight: FontWeight.bold),),
+                  FutureBuilder <int> (
+                    future:  caculateCurrentWeek(),
+                    builder: (context,snapshot)
+                    {
+                      if(snapshot.hasData)
+                        {
+                          return Text(snapshot.data.toString(),style: TextStyle(fontSize: size.width*0.07,color: Colors.orangeAccent,fontWeight: FontWeight.bold),);
+                        }
+                      return CircularProgressIndicator();
+                    },
+                  )
+
                 ],
               ),
               RichText(

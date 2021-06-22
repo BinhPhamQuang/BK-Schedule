@@ -36,6 +36,7 @@ class _HomeScreen extends State<HomeScreen>
     futureData=getTodaySubject();
     futureTask= loadDeadline();
     super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
