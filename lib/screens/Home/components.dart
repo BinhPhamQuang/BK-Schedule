@@ -50,6 +50,10 @@ class ItemTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     time_remaining=caculateTimeRemaining();
+    if(time_remaining<0)
+      {
+        return Container();
+      }
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.all(10),
