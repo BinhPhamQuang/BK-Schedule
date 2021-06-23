@@ -45,7 +45,7 @@ class ItemTask extends StatelessWidget {
       {
         color=Colors.green;
       }
-    return between;
+    return (task.date.difference(now).inMinutes).round();
   }
   @override
   Widget build(BuildContext context) {
