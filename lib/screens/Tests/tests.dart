@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bkschedule/DTO/Class.dart';
 import 'package:bkschedule/DTO/Tests.dart';
 import 'package:bkschedule/screens/Tests/components.dart';
@@ -6,19 +8,21 @@ import 'package:flutter/material.dart';
 import '../../constant.dart';
 
 class TestsScreen extends StatefulWidget {
-  const TestsScreen({Key? key}) : super(key: key);
+  final Future<int> getStatus;
+  const TestsScreen({Key? key, required this.getStatus}) : super(key: key);
 
   @override
-  _TestsScreenState createState() => _TestsScreenState();
+  _TestsScreenState createState() => _TestsScreenState(getStatus);
 }
 
 class _TestsScreenState extends State<TestsScreen> {
-  late Future <int> getStatus;
+   final Future <int> getStatus;
   late Future <List<Tests>> tests;
+
+  _TestsScreenState(this.getStatus);
   @override
   void initState()
   {
-    getStatus= getStatusTests();
     tests=loadTests();
     super.initState();
 
@@ -53,6 +57,7 @@ class _TestsScreenState extends State<TestsScreen> {
                              length: data.length,
                              child: Scaffold(
                                 appBar: AppBar(
+                                  automaticallyImplyLeading:false,
                                   backgroundColor: kPrimaryColor,
                                   title: TabBar(
                                     labelStyle: TextStyle(fontSize:  size.width*0.043),

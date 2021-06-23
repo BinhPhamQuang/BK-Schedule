@@ -410,6 +410,7 @@ Future <String> postTestsRun(String username,String password) async
 
 Future <List<Tests>> loadTests() async
 {
+  dev.log("load tests");
   List<Tests> result=[];
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/tests.txt');

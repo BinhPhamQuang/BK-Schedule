@@ -51,7 +51,7 @@ class _SchedulesScreen extends State<SchedulesScreen>
               length: data.length,
               child: Scaffold(
                 appBar: AppBar(
-
+                  automaticallyImplyLeading:false,
                   backgroundColor: kPrimaryColor,
                     // centerTitle: true,
                     // leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () =>Navigator.pop(context,false)  ,),

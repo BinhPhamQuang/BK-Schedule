@@ -27,7 +27,7 @@ class _HomeScreen extends State<HomeScreen>
 {
   late Future <List<Subject>> futureData;
   late Future <List<Task>> futureTask;
-
+  late Future <int> futureStatusTests;
   int selectedIndex=1;
 
 
@@ -36,6 +36,7 @@ class _HomeScreen extends State<HomeScreen>
   {
     futureData=getTodaySubject();
     futureTask= loadDeadline();
+    futureStatusTests= getStatusTests();
     super.initState();
 
   }
@@ -45,7 +46,7 @@ class _HomeScreen extends State<HomeScreen>
     Widget _schedules= SchedulesScreen();
     Widget _home= HomeBody(futureData: futureData,futureTask:futureTask);
     Widget _settings= SettingsScreen();
-    Widget tests= TestsScreen();
+    Widget tests= TestsScreen(getStatus: futureStatusTests,);
 
     void onTapHander(int index)
     {
